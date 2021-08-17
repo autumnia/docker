@@ -46,7 +46,7 @@
 ```
     sudo를 사용하고 싶지 않은 경우 
         sudo usermod -aG docker ${USER}
-        sudo su - ${USER}
+        sudo su - ${USER}  <= 암호입력 필요
         id -nG  <== 확인용
 
     sudo apt update & apt upgrade
