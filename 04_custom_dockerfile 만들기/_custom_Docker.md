@@ -79,4 +79,20 @@
         EXPOSE 3306
         CMD ["mysqld"]
 
+    이미지 만들기
+    tree -a
+    docker build -t mysql57:0.0 . 
+    docker images
+
+    이미지 생성
+    dodker run -it --name mydb
+
+    이미지 접속
+    docker exec =it -uroot mydb /bin/bash
+        mysql -uroot -p
+        show databases;
+
+
+
+    기존 이미지 생성을 참조한다. 
 ```
