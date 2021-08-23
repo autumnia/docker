@@ -19,7 +19,7 @@
                 node_exporter-1.0.1.linux-amd64.tar.gz
 
             https://prometheus.io/download/#mysqld_exporter
-                mysql_exporter-0.12.1.linux-amd64.tar.gz
+                mysqld_exporter-0.12.1.linux-amd64.tar.gz
 
             https://github.com/percona/percona-docker/tree/master/percona-server-5.7
                 ps-entry.sh
@@ -28,7 +28,8 @@
 
 
         FROM centos:7
-        COPY ["Percona-Server-client-57-5.7.30-33.1.el7.x86_64.rpm",\
+        COPY [
+            "Percona-Server-client-57-5.7.30-33.1.el7.x86_64.rpm",\
             "Percona-Server-server-57-5.7.30-33.1.el7.x86_64.rpm", \
             "Percona-Server-shared-57-5.7.30-33.1.el7.x86_64.rpm", \
             "Percona-Server-shared-compat-57-5.7.30-33.1.el7.x86_64.rpm", \
@@ -36,7 +37,8 @@
             "mysqld_exporter-0.12.1.linux-amd64.tar.gz", \
             "start_node_exporter.sh", \
             "start_mysqld_exporter.sh", \
-            ".my.cnf","/tmp/"]
+            ".my.cnf","/tmp/"
+        ]
         USER root
         RUN groupadd -g 1001 mysql
         RUN useradd -u 1001 -r -g 1001 mysql
@@ -65,7 +67,11 @@
             rm -rf /tmp/*.rpm && \
             /usr/bin/install -m 0775 -o mysql -g mysql -d /var/lib/mysql \
             /var/run/mysqld /docker-entrypoint-initdb.d
-        VOLUME ["/var/lib/mysql", "/var/log/mysql","/etc/percona-server.conf.d"]
+        VOLUME [
+            "/var/lib/mysql", 
+            "/var/log/mysql",
+            "/etc/percona-server.conf.d"
+        ]
         COPY ps-entry.sh /tmp/docker-entrypoint.sh
         RUN chmod +x /tmp/docker-entrypoint.sh
         ENTRYPOINT ["/tmp/docker-entrypoint.sh"]
