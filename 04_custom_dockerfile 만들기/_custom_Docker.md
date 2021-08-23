@@ -1,9 +1,5 @@
 ### Custom Dockerfile 만들기
 ```
-    node_exporter
-
-    mysqld_exporter
-
     기존 Dockerfile 참조
         https://github.com/percona/percona-docker/blob/master/percona-server-5.7/Dockerfile
 
