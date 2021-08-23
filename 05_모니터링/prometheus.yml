@@ -13,6 +13,7 @@ scrape_configs:
     - targets: ['db001:9104']
       labels:
         alias: db001
+
 - job_name: linux_db002
   static_configs:
     - targets: ['db002:9100']
@@ -23,6 +24,7 @@ scrape_configs:
     - targets: ['db002:9104']
       labels:
         alias: db002
+        
 - job_name: linux_db003
   static_configs:
     - targets: ['db003:9100']
