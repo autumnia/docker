@@ -108,7 +108,9 @@
     mysql -uroot -p
         slelect * from testdb.insert_test;
 
-    복구
+    데이터가 002 DB로 들어감
+
+    장애발생
     orchestrator 접속 > Audit > Acknowlegdge 확인
 
     docker start db001
@@ -124,6 +126,7 @@
         exit
     exit
 
+    장애복구
     docker stop db002
     orchestrator 접속 > Audit > Acknowlegdge 확인
     docker start db002
