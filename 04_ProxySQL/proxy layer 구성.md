@@ -102,6 +102,11 @@
     truncate table testdb.insert_test;
     sh app_test_insert.sh
 
+    docker stop db001
+    docker exec -it -uroot db002 /bin/bash
+    mysql -uroot -p
+        slelect * from testdb.insert_test;
+
 
     
 
