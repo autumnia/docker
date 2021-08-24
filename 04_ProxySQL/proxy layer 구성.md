@@ -29,17 +29,52 @@
 ```
 
 ### Failover 테스트
-```
+
+#### db001 설정
+```   
     docker exec -it -uroot db001 /bin/bash
 
     mysql -uroot -p
         create database testdb default character set utf8;
         
         create user 'appuser'@'%' identified by 'apppass';
-        grant select , insert, update, delete on testdb.* to appuser@'%';
+        grant select , insert, update, delete on testdb.* to appuser'@'%';
 
-        create user 'monitor'@'%' identified by 'apppass';
-        grant select , insert, update, delete on testdb.* to appuser@'%';
+        create user 'monitor'@'%' identified by 'monitor';
+        grant select , insert, update, delete on testdb.* to monitor'@'%';
+
+        flush privileges;
+```
+
+#### proxysql 테스트 환경 구성
+```
+    mysql -h127.0.0.1 -p6032 -uradmin -pradmin --prompt "ProxySQL Admin>"
+        insert into mysql_servers( hostgroup_id, hostname, port) values ( 10, 'db001', 3306 );
+
+        insert into mysql_servers( hostgroup_id, hostname, port) values ( 20, 'db001', 3306 );
+        insert into mysql_servers( hostgroup_id, hostname, port) values ( 20, 'db002', 3306 );
+        insert into mysql_servers( hostgroup_id, hostname, port) values ( 20, 'db003', 3306 );
+        insert into mysql_replication_hostgroups values(10, 20, 'read_only', '');
+
+        load mysql servers to runtime;
+        save mysql servers to disk;
 
 
+        insert into mysql_users( username, password, default_hostgroup, transaction_persistent)
+        values( 'appuser', 'apppass', 10, 0 );
+
+        load mysql users to runtime;
+        save mysql users to disk;        
+
+
+        insert into mysql_query_rules( rule_id, active, match_pattern, destination_hostgroup)
+        values( 1, 1, '^select.*for update$', 10 );
+
+        insert into mysql_query_rules( rule_id, active, match_pattern, destination_hostgroup)
+        values(2, 1, '^select', 20)
+
+        load mysql rules to runtime;
+        save mysql rules to disk;   
+
+    
 ```
