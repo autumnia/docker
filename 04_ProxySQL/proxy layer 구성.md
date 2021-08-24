@@ -103,15 +103,41 @@
     sh app_test_insert.sh
 
     docker stop db001
+
     docker exec -it -uroot db002 /bin/bash
     mysql -uroot -p
         slelect * from testdb.insert_test;
 
+    복구
+    orchestrator 접속 > Audit > Acknowlegdge 확인
 
-    
+    docker start db001
+    docker exec -it -uroot db001 /bin/bash
+    mysql -uroot -p
+        set global read_only=1;
+        change master to master_host='db002', \
+        master_user='repl', master_password='repl', \
+        master_auto_position=1;
 
+        start slave;
+        show slave status\G
+        exit
+    exit
 
+    docker stop db002
+    orchestrator 접속 > Audit > Acknowlegdge 확인
+    docker start db002
+    docker exec -it -uroot db001 /bin/bash
+        mysql -uroot -p
+            set global read_only=1;
+            change master to master_host='db001', \
+            master_user='repl', master_password='repl', \
+            master_auto_position=1;
 
+        start slave;
+        show slave status\G
+        exit
+    exit
 
-
-
+    최종확인
+    orchestrator 접속 > Audit > Acknowlegdge 확인
