@@ -1,5 +1,7 @@
 version: "3"
+
 services:
+
   db001:
     image: mysql57:0.0
     container_name: db001
@@ -14,6 +16,7 @@ services:
       - /db/db001/conf:/etc/percona-server.conf.d
     networks:
       - mybridge
+
   db002:
     image: mysql57:0.0
     container_name: db002
@@ -28,6 +31,7 @@ services:
       - /db/db002/conf:/etc/percona-server.conf.d
     networks:
       - mybridge
+
   db003:
     image: mysql57:0.0
     container_name: db003
@@ -42,6 +46,7 @@ services:
       - /db/db003/conf:/etc/percona-server.conf.d
     networks:
       - mybridge
+
   orchestrator:
     image: openarkcode/orchestrator:latest
     container_name: orchestrator
@@ -50,6 +55,7 @@ services:
       - "3000:3000"
     networks:
       - mybridge
+
   proxysql:
     image: proxysql/proxysql
     container_name: proxysql
@@ -62,6 +68,7 @@ services:
       - /db/proxysql/conf/proxysql.cnf:/etc/proxysql.cnf
     networks:
       - mybridge
+
   prom001:
     image: prom/prometheus-linux-amd64
     container_name: prom001
@@ -73,6 +80,7 @@ services:
       - /db/prom001/conf:/etc/prometheus
     networks:
       - mybridge
+
   grafana:
     image: grafana/grafana
     container_name: grafana
