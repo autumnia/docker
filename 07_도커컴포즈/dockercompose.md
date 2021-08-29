@@ -14,6 +14,15 @@
     실행 전 상태 조회
         docker ps --format "table {{.Names}} \t {{.Status}}"        
 
+    기존 도커 이미지 모두 삭제
+        docker stop  컨테이너명01, 컨테이너명01 ....
+
+    기존 DB data 삭제
+        cd d:\data\db\db001
+        cd d:\data\db\db001
+        cd d:\data\db\db001
+        cd d:\data\dbproxy
+
     docker-compose.yml 작성 후 실행
         docker-compose up -d
 
