@@ -8,6 +8,7 @@
     swarm mode 구성
         ![docker_swarm_mode]](./docker_swarm_mode.png)
         docker swarm init --adverties-addr { manager_noe_ip }
+        위 명령어를 실행하면 워커노드 추가를 위한 토큰과 명령어가 출력된다. 
 
     swarm mode cluster 시작
         필요한 포트 
