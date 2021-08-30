@@ -33,15 +33,34 @@
             docker tag mysql57:0.0  autumnia/mysql57:0.0
             docker push autumnia/mysql57:0.0
 
+        기존 컨테이너 초기화
+            docker ps
+            rm -rf /data/db/*
+
         swarm의 경우 서비스 단위로 실행
             docker service create --name db001 --hostname db001 -p 3306:3306 \
             --mount type=bind, source=/db/db001/data, target=/var/lib/mysql \
             --mount type=bind, source=/db/db001/log,  target=/var/log/mysql \
             --mount type=bind, source=/db/db001/conf, target=/etc/percona-server.conf.d \
-            -e MYSQL_ROOT_PASSWORD="root" --with-registry-auth
+            -e MYSQL_ROOT_PASSWORD="root" --with-registry-auth \
             autumnia/mysql57:0.0
 
+        서비스 확인 ( 매니저 노드에서만 조회 )
             docker service ls
+            dockeer service ps db001
 
+        해당 노드에서 확인 할 경우 
+            docker ps --format "table {{.Names}} \t {{.Status}}"
         
+        Mysql 서비스 접속 확인 
+            1. manager node ip로 접속 확인
+                mysql -uroot -p -h {manager_node_ip}
+
+            2. worker node ip로 접속 확인
+                mysql -uroot -p -h {worker_node_ip}
+
+        데이터 유지 방법
+            해당 container가 특정 노드에서만 실행 되도록 한다. 
+            NFS Storage mount
+            Volume plugin ( GlusterFS )    
 ```
