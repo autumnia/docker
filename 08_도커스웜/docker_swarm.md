@@ -95,6 +95,43 @@
             docker service ps db001
 
         2. NFS Storage mount
+            NFS 서버 구성  ( 2049, 111 tcp/udb 포트 오픈 필요함 )
+                rpm -qq | grep nfs-utils
+                yum install -y nfs-utils.x86_64
+                systemctl start nfs-server
+                vi /etc/exports
+                    /db/ {manager_node1_hostname}(rw, sync) {worker_node1_hostname}(rw,sync) {worker_node2_hostname}(rw,sync)
+                systemctl stop nfs-server
+                systemctl start nfs-server
+
+                groupadd -g 1001 mysql
+                useradd -u 1001 -r -g 1001 mysql
+                mkdir -p /db/db001/data /db/db001/log /db/db001/conf
+                vi /db/db001/conf/my.cnf  <==  05 custom dockerfile 참조
+                chown -R mysql:mysql /db
+
+            NFS 디렉토리 마운트 ( swarm node )    
+                docker service rm db001
+                rm -rf /db
+                mkdir /db
+                chown -R mysql:mysql /db
+                mount -t nfs {nfs_server_ip}:/db /db
+                cd /db
+                ls -la
+
+            서비스 재생성
+                docker service create --name db001 --hostname db001 -p 3306:3306 \
+                --mount type=bind, source=/db/db001/data, target=/var/lib/mysql \
+                --mount type=bind, source=/db/db001/log,  target=/var/log/mysql \
+                --mount type=bind, source=/db/db001/conf, target=/etc/percona-server.conf.d \
+                -e MYSQL_ROOT_PASSWORD="root" --with-registry-auth \
+                autumnia/mysql57:0.0      
+
+                docker service ps db001
+
+                마운트 폴더에 데이터 생성 확인
+                cd /db/db001/data
+                ls -la          
 
 
         3. Volume plugin ( GlusterFS )    
