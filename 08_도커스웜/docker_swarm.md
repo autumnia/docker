@@ -97,10 +97,11 @@
         2. NFS Storage mount
             NFS 서버 구성  ( 2049, 111 tcp/udb 포트 오픈 필요함 )
                 rpm -qq | grep nfs-utils
-                yum install -y nfs-utils.x86_64
+                yum install -y nfs-utils.x86_64  <= 조회 후 없으면 설치
                 systemctl start nfs-server
                 vi /etc/exports
                     /db/ {manager_node1_hostname}(rw, sync) {worker_node1_hostname}(rw,sync) {worker_node2_hostname}(rw,sync)
+                설정반영
                 systemctl stop nfs-server
                 systemctl start nfs-server
 
@@ -110,14 +111,21 @@
                 vi /db/db001/conf/my.cnf  <==  05 custom dockerfile 참조
                 chown -R mysql:mysql /db
 
-            NFS 디렉토리 마운트 ( swarm node )    
-                docker service rm db001
-                rm -rf /db
+            매니저 node에서 NFS 디렉토리 마운트 ( swarm node )    
+                docker service ls           <== 실행 중인 서비스가 있는지 확인 
+                docker service rm db001     <== rm 명령어로 삭제 
+
+                새로 구성
+                rm -rf /db  
                 mkdir /db
                 chown -R mysql:mysql /db
+
+                NFS연결
                 mount -t nfs {nfs_server_ip}:/db /db
                 cd /db
-                ls -la
+                ls -la   
+
+                나머지 1 2 번 노드에도 동일 작업 필요함
 
             서비스 재생성
                 docker service create --name db001 --hostname db001 -p 3306:3306 \
@@ -127,6 +135,7 @@
                 -e MYSQL_ROOT_PASSWORD="root" --with-registry-auth \
                 autumnia/mysql57:0.0      
 
+                docker service ls
                 docker service ps db001
 
                 마운트 폴더에 데이터 생성 확인
