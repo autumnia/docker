@@ -163,13 +163,18 @@
 
                 df -h
 
-            GlusterrFS설치 및 세팅
-                docker plugin install --alias glusterfs trajano/glusterfs-volume-plugin --grant-all-permissions --disable
+            Gluster plugin 설치 ( 모든 노드 설치 )
+                docker plugin install --alias glusterfs \
+                trajano/glusterfs-volume-plugin \
+                --grant-all-permissions \
+                --disable
 
                 docker plugin set glusterfs SERVERS=172.31.10.19,172.31.6.58,172.31.4.155
 
                 docker plugin enable glusterfs
 
+
+            GlusterrFS설치 및 세팅
                 3대 모두 설치
                 yum install -y xfsprogs.x86_64
                 yum install -y attr.x86_64
