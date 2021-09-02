@@ -144,4 +144,49 @@
 
 
         3. Volume plugin ( GlusterFS )    
+            https://docs.docker.com/engine/extend/legacy_plugins/#volume-plugins
+            각 노드에서 동일 데이타를 복제해서 보유하는 방식
+
+            마스터 노드에 실행 후  2번노드 3번노드도 동일하게 설정한다. 
+            ( 번호만 변경 한다.  1 ==> 2 )           
+                lsblk
+
+                mkfs -t xfs /dev/nvme1n1
+                mkdir /gluster/bricks/1/brick
+                mount /dev/nvme1n1 /gluster/bricks/1/brick
+
+                vi /etc/fstab
+                    /dev/nvme1n1 /gluster/bricks/1/brick xfs defaults,noatime 1 1
+
+            GlusterrFS설치 및 세팅
+                docker plugin install --alias glusterfs trajano/glusterfs-volume-plugin --grant-all-permissions --disable
+
+                docker plugin set glusterfs SERVERS=172.31.10.19,172.31.6.58,172.31.4.155
+
+                docker plugin enable glusterfs
+
+                3대 모두 설치
+                yum install -y xfsprogs.x86_64
+                yum install -y attr.x86_64
+                yum install -y glusterfs.x86_64
+                yum install -y centos-release-gluster7.noarch
+                yum install -y glusterfs-server.x86_64
+
+                systemctl enable glusterfsd
+                systemctl start glusterd
+
+                vi /etc/hosts
+                172.31.10.19    ip-172-31-10-19
+                172.31.6.58     ip-172-31-6-58
+                172.31.4.155    ip-172-31-4-155
+
+                GlusterFS 포트 오픈 : 24007, 24008, 24009, 49152, 111
+
+                
+
+
+
+
+
 ```
+
