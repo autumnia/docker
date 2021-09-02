@@ -147,16 +147,21 @@
             https://docs.docker.com/engine/extend/legacy_plugins/#volume-plugins
             각 노드에서 동일 데이타를 복제해서 보유하는 방식
 
-            마스터 노드에 실행 후  2번노드 3번노드도 동일하게 설정한다. 
-            ( 번호만 변경 한다.  1 ==> 2 )           
-                lsblk
+            파일시스템 생성
+                마스터 노드에 실행 후  2번노드 3번노드도 동일하게 설정한다. 
+                ( 번호만 변경 한다.  1 ==> 2 )           
+                lsblk  <= 디스크 추가 확인  ( 디스크 추가 먼저 해야 함 )
 
                 mkfs -t xfs /dev/nvme1n1
-                mkdir /gluster/bricks/1/brick
+                
+                mkdir -p /gluster/bricks/1/brick
+
                 mount /dev/nvme1n1 /gluster/bricks/1/brick
 
                 vi /etc/fstab
                     /dev/nvme1n1 /gluster/bricks/1/brick xfs defaults,noatime 1 1
+
+                df -h
 
             GlusterrFS설치 및 세팅
                 docker plugin install --alias glusterfs trajano/glusterfs-volume-plugin --grant-all-permissions --disable
@@ -180,7 +185,56 @@
                 172.31.6.58     ip-172-31-6-58
                 172.31.4.155    ip-172-31-4-155
 
-                GlusterFS 포트 오픈 : 24007, 24008, 24009, 49152, 111
+                GlusterFS 포트 오픈 필요 : 24007, 24008, 24009, 49152, 111
+
+            마스터 노드에서 작업
+                gluster peer probe ip-172-31-6-58
+                gluster peer probe ip-172-31-4-155
+
+                gluster pool list
+
+                gluster volume create gfs \
+                replica 3 \
+                ip-172-31-10-19:/gluster/brics/1/brick  \
+                ip-172-31-6-58:/gluster/brics/2/brick   \
+                ip-172-31-4-155:/gluster/brics/3/brick  \
+                force
+
+                gluster volume start gfs
+
+                gluster volume set gfs auth.allow 172.31.10.19,172.31.6.58,172.31.4.155
+
+                mount.glusterfs localhost:/gfs /db
+
+                cd /db
+                mkdir -p db001 db001/data db001/log db001/conf
+                vi /db/db001/conf/my.cnf
+                chown -R mysql:mysql /db
+
+                서비스 재생성
+                docker service create --name db001 --hostname db001 -p 3306:3306 \
+                --mount type=bind, source=/db/db001/data, target=/var/lib/mysql \
+                --mount type=bind, source=/db/db001/log,  target=/var/log/mysql \
+                --mount type=bind, source=/db/db001/conf, target=/etc/percona-server.conf.d \
+                -e MYSQL_ROOT_PASSWORD="root" --with-registry-auth \
+                autumnia/mysql57:0.0      
+
+                docker service ls
+                docker service ps db001                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 
 
