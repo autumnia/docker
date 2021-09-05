@@ -212,8 +212,18 @@
                 mount.glusterfs localhost:/gfs /db
 
                 cd /db
+                디렉토리 초기화  3대 모두
+                rm -rf /db  
+                mkdir /db 
+                mount.glusterfs localhost:/gfs /db
+
+                마스터 노드에서만 생성 )  
                 mkdir -p db001 db001/data db001/log db001/conf
+
+                마스터 노드에서만 실행
                 vi /db/db001/conf/my.cnf
+
+                3개 노드 모두 
                 chown -R mysql:mysql /db
 
                 서비스 재생성
@@ -225,8 +235,12 @@
                 autumnia/mysql57:0.0      
 
                 docker service ls
-                docker service ps db001                
+                docker service ps db001    
 
+                docker ps 
+                cd /db/db001    데이타 확인 => 다른 노드도 확인 
+
+                단점은 복제로 인한 용량 
 
 
 
