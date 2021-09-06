@@ -23,13 +23,26 @@
 
 
 ``` mysql 백업 및 복구
-    docker run -it --name db001 --h db001 -p 3306:3306 \
-    --net mybridg --net-alias=db001 \
-    --mount type=bind, source=/db/db001/data, target=/var/lib/mysql \
-    --mount type=bind, source=/db/db001/log,  target=/var/log/mysql \
-    --mount type=bind, source=/db/db001/conf, target=/etc/percona-server.conf.d \
-    -e MYSQL_ROOT_PASSWORD="root" --with-registry-auth \
-    autumnia/mysql57:0.0          
+
+    기존 서비스 중지
+
+    docker run -it --name db001 -h db001 -p 3306:3306 \
+    --net mybridge --net-alias=db001 \
+    -v d:\data\db\db001\data:/var/lib/mysql \
+    -v d:\data\db\db001\log:/var/log/mysql \
+    -v d:\data\db\db001\conf:/etc/percona-server.conf.d \
+    -e MYSQL_ROOT_PASSWORD="root" \
+    -d autumnia/mysql57:0.0          
+
+    docker run -it --name db002 -h db002 -p 3306:3306 \
+    --net mybridge --net-alias=db002 \
+    -v d:\data\db\db002\data:/var/lib/mysql \
+    -v d:\data\db\db002\log:/var/log/mysql \
+    -v d:\data\db\db002\conf:/etc/percona-server.conf.d \
+    -e MYSQL_ROOT_PASSWORD="root" \
+    -d autumnia/mysql57:0.0   
+
+    노 ㄴㄷㅅ 
 
 
 ```
