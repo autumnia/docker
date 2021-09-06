@@ -20,3 +20,16 @@
     docker run -it -d -p 8081:8081 nexus3_20210521
 
 ```
+
+
+``` mysql 백업 및 복구
+    docker run -it --name db001 --h db001 -p 3306:3306 \
+    --net mybridg --net-alias=db001 \
+    --mount type=bind, source=/db/db001/data, target=/var/lib/mysql \
+    --mount type=bind, source=/db/db001/log,  target=/var/log/mysql \
+    --mount type=bind, source=/db/db001/conf, target=/etc/percona-server.conf.d \
+    -e MYSQL_ROOT_PASSWORD="root" --with-registry-auth \
+    autumnia/mysql57:0.0          
+
+
+```
