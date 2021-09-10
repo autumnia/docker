@@ -1,1 +1,17 @@
-trer
+version: "3"
+
+services:
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    hostname: sonarqube
+    ports:
+      - "9000:9000"
+#    environment:
+#      MYSQL_ROOT_PASSWORD: 'root'
+    volumes:
+      - /db/db001/data:/var/lib/mysql
+      - /db/db001/log:/var/log/mysql
+      - /db/db001/conf:/etc/percona-server.conf.d
+    networks:
+      - mybridge

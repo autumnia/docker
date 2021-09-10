@@ -1,0 +1,20 @@
+### yml  파일 작성
+```
+version: "3"
+
+services:
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    hostname: sonarqube
+    ports:
+      - "9000:9000"
+    networks:
+      - mybridge
+```
+
+### 실행
+```
+  docker-compose.yml 작성 후 실행
+  docker-compose up -d
+```

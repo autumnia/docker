@@ -1,7 +1,7 @@
 ### 젠킨스 생성 샘플
 ```
     nginx 실행
-    docker run --name nginx01 -h nginx01 -p 80:80 -p 443:443\
+    docker run -it --name nginx01 -h nginx01 -p 80:80 -p 443:443\
     -v d:\data\nginx\html:/usr/share/nginx/html \
     -v d:\data\nginx\config\nginx.conf:/etc/nginx/conf.d/nginx.conf \
     -d nginx:latest
