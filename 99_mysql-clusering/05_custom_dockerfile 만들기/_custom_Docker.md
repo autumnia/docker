@@ -78,7 +78,7 @@
     이미지 만들기
     tree -a
     docker build -t mysql57:0.0 . 
-    docker images
+    docker images 
 
     이미지 생성
     dodker run -it --name mydb
