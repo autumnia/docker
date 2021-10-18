@@ -11,8 +11,8 @@
 
 # nginx.conf 파일
 # 컨테이너 내부에 /etc/nginx/conf.d/nginx.conf 경로에 존재
+# user  nginx;
 
-user  nginx;
 worker_processes  1;
 
 error_log  /var/log/nginx/error.log warn;
@@ -45,6 +45,24 @@ http {
 
     #security
     server_tokens off;
+
+    #virtual host
+    include ../sites-enabled/*;
 }
+
+
+# 컨테이너 내부에 /usr/local/nginx/sites-enabled/default.conf
+
+    server {
+        listen 80 default;
+        server_name _;
+
+        location / {
+            root /var/www/default;
+            index index.html
+        }
+
+    }
+
 
 ```
