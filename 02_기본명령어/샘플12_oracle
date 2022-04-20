@@ -1,0 +1,30 @@
+# 도커에 Oracle 설치
+```
+    네트워크 구성이 필요없을 경우 만들지 않는다.
+    
+    docker network ls   <= 기본 4개
+    docker network create --driver bridge myNet```
+
+    ## oracle 11g
+    docker run -d \
+    #--restart always \
+    #--network myNet \  
+    --name oracle11g \
+    -h oracle01 \
+    -p 1521:1521 \
+    -e TZ=Asia/Seoul \
+    jaspeen/oracle-xe-11g
+
+    ## oracle 19c
+    docker run -d \
+    #--restart always \
+    #--network myNet \
+    --name oracle19c \
+    -h oracle01 \
+    -p 1521:1521 \
+    -e TZ=Asia/Seoul \
+    truevoly/oracle-12c
+    
+```
+
+
