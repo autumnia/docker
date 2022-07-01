@@ -1,0 +1,10 @@
+# Mac에 설치
+```
+    * Mac install 
+        https://docs.docker.com/desktop/mac/install/
+    
+        brew install minikube
+
+
+
+```
