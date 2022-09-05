@@ -52,6 +52,9 @@
         --name mysql mysql
         -d mysql
 
+        docker run -it --name mysql -h mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 --name mysql mysql -d mysql
+
+
     docker ps
 
     docker: no matching manifest for linux/arm64/v8 in the manifest list entries. 오류가 발생하시는분은
