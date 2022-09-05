@@ -46,8 +46,13 @@
 
     mysql 설치 및 실행
         docker pull mysql
-        docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 --name mysql mysql 
-        docker ps
+        docker run -it --name mysql -h mysql \
+        -p 3306:3306 \
+        -e MYSQL_ROOT_PASSWORD=1234 \
+        --name mysql mysql
+        -d mysql
+
+    docker ps
 
     docker: no matching manifest for linux/arm64/v8 in the manifest list entries. 오류가 발생하시는분은
     docker pull --platform linux/x86_64 mysql
