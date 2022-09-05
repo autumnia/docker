@@ -52,7 +52,7 @@
         --name mysql mysql
         -d mysql
 
-        docker run -it --name mysql -h mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 --name mysql mysql -d mysql
+        docker run -it --name mysql -h mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql
 
 
     docker ps
