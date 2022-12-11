@@ -1,1 +1,11 @@
-ㄷㄷ
+# 젠킨스
+
+
+### 구성
+```
+   좌측메뉴 젠킨스관리 > Global Tool Configuration
+      > jdk HOME 경로 설정
+      > Git 설정
+      > maven or gradle 설정
+
+```
