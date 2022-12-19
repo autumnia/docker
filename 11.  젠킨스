@@ -20,7 +20,8 @@
    -v /sys/fs/cgroup:/sys/fs/cgroup \
    -d edowon0623/docker:latest /usr/sbin/init
    
-   ssh root@localhost -p 10022
+   ssh root@localhost -p 10022 
+   기본패스워드: P@ssw0rd
 ```
 
 ### docker 기본 명령어
