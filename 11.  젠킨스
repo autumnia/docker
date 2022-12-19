@@ -30,3 +30,9 @@
       > maven or gradle 설정
 
 ```
+
+### item 설정
+```
+   1. item 클릭 > 프로젝트명 작성 > Build > execute shell 선택
+   
+```
