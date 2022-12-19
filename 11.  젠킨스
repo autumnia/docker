@@ -11,7 +11,7 @@
    --restart=on-failure \
    -d jenkins/jenkins:lts-jdk11
 
-   $ docker + ssh server
+   $ docker + ssh server for win, mac
    docker run -it \
    --privileged \
    --name docker-server -h docker-server \
@@ -22,6 +22,16 @@
    
    ssh root@localhost -p 10022 
    기본패스워드: P@ssw0rd
+   
+   
+   $ doker + ssh server for M1
+   docker run -it \
+   --privileged \
+   --name docker-server -h docker-server \
+   -p 10022:22 -p 8081:8080 \
+   -e container=docker \
+   -v /sys/fs/cgroup:/sys/fs/cgroup \
+   -d edowon0623/docker-server:m1 /usr/sbin/init
 ```
 
 ### docker 기본 명령어
