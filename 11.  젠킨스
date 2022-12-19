@@ -11,8 +11,9 @@
    --restart=on-failure \
    -d jenkins/jenkins:lts-jdk11
 
-   $ docker + ssh 
+   $ docker + ssh server
    docker run -it \
+   --privileged \
    --name docker-server -h docker-server \
    -p 10022:22 -p 8081:8080 \
    -e container=docker \
