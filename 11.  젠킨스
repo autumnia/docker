@@ -26,7 +26,7 @@
       > jdk HOME 경로 설정
          초기설치에는 경로가 잡혀 있어 필요 없음   ( which jdk 로 결로를 찾을 수 있음)
       > Git 설정
-            
+        Dashboard > Jenkins Manage > Jenkins Plugin Manage > availble > GitHub
       > maven or gradle 설정
 
 ```
