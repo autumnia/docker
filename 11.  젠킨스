@@ -6,7 +6,7 @@
    docker run -it \
    --name jenkins -h jenins \
    -p 8080:8080 -p 50000:50000 \
-   -v /jenkins_home:/
+   -v /jenkins:/var/jenkins_home \   <= 도커에서 할 경우 생략가능
    -u root \
    --restart=on-failure \
    -d jenkins/jenkins:lts-jdk11
@@ -16,8 +16,8 @@
 ```
    docker images
    docker conatainer ls
-   docker log ID or host_name
-   docker -it
+   docker log ID or host_name   // 초기 패스워드 보기 
+   docker -it   // 도커 내부 접속 
    
 ```
 
