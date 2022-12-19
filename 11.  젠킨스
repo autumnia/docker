@@ -24,15 +24,23 @@
 ```
    좌측메뉴 젠킨스관리 > Global Tool Configuration
       > jdk HOME 경로 설정
-         초기설치에는 경로가 잡혀 있어 필요 없음   ( which jdk 로 결로를 찾을 수 있음)
+         초기설치에는 경로가 잡혀 있어 필요 없음   
+         ( which jdk 로 결로를 찾을 수 있음 )
       > Git 설정
         Dashboard > Jenkins Manage > Jenkins Plugin Manage > availble > GitHub
+        ( 최근 기본으로 설치되어 있음 )
       > maven or gradle 설정
-
+        
 ```
 
 ### item 설정
 ```
    1. item 클릭 > 프로젝트명 작성 > Build > execute shell 선택
+      ( 로그에서 workplace 경로를 확인 할 수 있음 )
+      echo "Welcome"
+      javac -version
+      git --version
+      
+   2. 
    
 ```
