@@ -10,6 +10,16 @@
    -u root \
    --restart=on-failure \
    -d jenkins/jenkins:lts-jdk11
+
+   $ docker + ssh 
+   docker run -it \
+   --name docker-server -h docker-server \
+   -p 10022:22 -p 8081:8080 \
+   -e container=docker \
+   -v /sys/fs/cgroup:/sys/fs/cgroup \
+   -d edowon0623/docker:latest /usr/sbin/init
+   
+   ssh root@localhost -p 10022
 ```
 
 ### docker 기본 명령어
@@ -30,7 +40,8 @@
         Dashboard > Jenkins Manage > Jenkins Plugin Manage > availble > GitHub
         ( 최근 기본으로 설치되어 있음 )
       > maven or gradle 설정
-        
+        Dashboard > Jenkins Manage > Jenkins Plugin Manage > availble > maven
+        maven integration  
 ```
 
 ### item 설정
@@ -38,8 +49,9 @@
    1. item 클릭 > 프로젝트명 작성 > Build > execute shell 선택
       ( 로그에서 workplace 경로를 확인 할 수 있음 )
       echo "Welcome"
-      javac -version
-      git --version
+      javac --version
+      git   --version
+      mvn   --version
       
    2. 
    
