@@ -17,8 +17,7 @@
    docker images
    docker conatainer ls
    docker log ID or host_name   // 초기 패스워드 보기 
-   docker -it   // 도커 내부 접속 
-   
+   docker exec -it  (container ID) /bin/bash   // 도커 내부 접속 
 ```
 
 ### 구성
