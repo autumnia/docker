@@ -21,6 +21,7 @@
    -d edowon0623/docker:latest /usr/sbin/init
    
    ssh root@localhost -p 10022 
+   // ssh root@localhost:10022
    기본패스워드: P@ssw0rd
    
    
