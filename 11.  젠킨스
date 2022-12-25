@@ -5,6 +5,13 @@
    
    docker run -itd --name jenkins-server -h jenkins -p 8080:8080 -p 50000:50000 --restart=on-failure jenkins/jenkins:lts-jdk11
    docker run -itd --name jenkins-server -h jenkins -p 8080:8080 -p 50000:50000 --restart=on-failure -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk11
+
+   소스코드
+      https://github.com/joneconsulting/cicd-web-project
+   
+   Jenkins Docker 컨테이너에 터널링으로 접속
+      docker container exec -it jenkins-server bash (OS에서 입력)
+      cd /var/jenkins_home/workspace (컨테이너에서 입력)
 ```
 
 ### 설치
