@@ -34,7 +34,7 @@ Dockerfile 내용
    app:
     build: .
     environment:
-      - DTABASE_URL=postres://autumnia:autumn@postgres/app_db
+      - DTABASE_URL=postgres://autumnia:autumn@postgres/app_db
     ports:
       - 8000:8000
     volumes:
