@@ -1,4 +1,5 @@
 Dockerfile 내용
+
   FROM rust:latest
   
   WORKDIR /app/
@@ -15,4 +16,27 @@ Dockerfile 내용
  ---------------------------------------------------------
  
  docker-compose.yml 내용
+ 
+ version: '3.3'
+ 
+ service:
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=autumnia
+      - POSTGRES_PASSWORD=autumn
+      - POSTGRES_DB=app_db
+    command: ["postgres", "-c", "log_statement=all]
+    
+   redis:
+    image: redis:latest
+    
+   app:
+    build: .
+    environment:
+      - DTABASE_URL=postres://autumnia:autumn@postgres/app_db
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/app
  
