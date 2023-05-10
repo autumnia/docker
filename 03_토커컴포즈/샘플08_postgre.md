@@ -47,3 +47,6 @@ Dockerfile 내용
  docker-compose build
 
  docker-compose ps
+ 
+ docker-compose logs postgre
+ 
