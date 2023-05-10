@@ -40,3 +40,10 @@ Dockerfile 내용
     volumes:
       - ./:/app
  
+----------------------------------------------
+실행
+ docker-compose up -d
+
+ docker-compose build
+
+ docker-compose ps
