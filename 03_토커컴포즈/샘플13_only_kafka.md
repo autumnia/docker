@@ -27,7 +27,7 @@
   volumes:
     /app/kafka_data:
       external: true
-      //driver: local
+      #driver: local
 ```
 
 # kafka cluster install
