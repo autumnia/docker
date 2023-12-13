@@ -1,3 +1,29 @@
+# KRaft kafka
+```rust
+  version: "3"
+  services:
+    kafka1:
+        image: confluentinc/cp-kafka:7.3.3
+        hostname: kafka1
+        container_name: kafka1
+        ports:
+          - "39092:39092"
+        environment:
+          KAFKA_LISTENERS: BROKER://kafka1:19092,EXTERNAL://kafka1:39092,CONTROLLER://kafka1:9093
+          KAFKA_ADVERTISED_LISTENERS: BROKER://kafka1:19092,EXTERNAL://kafka1:39092
+          KAFKA_INTER_BROKER_LISTENER_NAME: BROKER
+          KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,BROKER:PLAINTEXT,EXTERNAL:PLAINTEXT
+          KAFKA_PROCESS_ROLES: 'controller,broker'
+          KAFKA_NODE_ID: 1
+          KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka1:9093,2@kafka2:9093,3@kafka3:9093'
+          KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+        volumes:
+          - ./scripts/update_run.sh:/tmp/update_run.sh
+          - ./clusterID:/tmp/clusterID
+        command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
+```
+
 # kafka dev install
 ```rust
   version: "3"
