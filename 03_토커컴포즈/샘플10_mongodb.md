@@ -1,0 +1,19 @@
+# docker-compose.xml
+```
+version: "3"
+
+services:
+  mongodb:
+    image: mongo:4.4
+    restart: always
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 12345678 
+    volumes:
+      - mongodb_datas:/data/db
+volumes:
+  mongodb_datas:
+```
