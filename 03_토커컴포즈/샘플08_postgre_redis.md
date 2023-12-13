@@ -15,7 +15,7 @@ Dockerfile 내용
  
  ---------------------------------------------------------
  
- docker-compose.yml 내용
+# docker-compose.yml 내용
  
  version: '3.3'
  
