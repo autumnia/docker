@@ -19,7 +19,7 @@
           KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka1:9093,2@kafka2:9093,3@kafka3:9093'
           KAFKA_LOG_DIRS: '/app/kafka_logs'
         volumes:
-          - /app/kafka_data:
+          - /app/kafka_data
           #- ./scripts/update_run.sh:/tmp/update_run.sh
           #- ./clusterID:/tmp/clusterID
         #command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
