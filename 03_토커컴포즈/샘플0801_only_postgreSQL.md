@@ -1,0 +1,25 @@
+# docker-compose.xml
+```
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "${DB_USER_ID}"
+      POSTGRES_PASSWORD: "${DB_USER_PASSWORD}"
+    volumes:
+      - postgres_datas:/var/lib/postgresql/data
+volumes:
+    postgres_datas:
+```
+
+# .env
+```
+DB_USER_ID=postgres
+DB_USER_PASSWORD=12345678
+```
