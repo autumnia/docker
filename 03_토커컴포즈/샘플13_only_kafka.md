@@ -9,7 +9,8 @@
         - /app/kafka_data:/app/myapp
       ports:
         - '9092:9092'
-        - '9004:9004'
+        - '9093:9093'
+        - '9094:9094'
       environment:
         - KAFKA_ENABLE_KRAFT=yes
         - KAFKA_CFG_PROCESS_ROLES=broker,controller
@@ -26,7 +27,7 @@
   volumes:
     /app/kafka_data:
       external: true
-      driver: local
+      //driver: local
 ```
 
 # kafka cluster install
