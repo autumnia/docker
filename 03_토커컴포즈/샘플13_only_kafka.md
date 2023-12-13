@@ -17,10 +17,11 @@
           KAFKA_PROCESS_ROLES: 'controller,broker'
           KAFKA_NODE_ID: 1
           KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka1:9093,2@kafka2:9093,3@kafka3:9093'
-          KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+          KAFKA_LOG_DIRS: '/app/kafka_logs/kraft-combined-logs'
         volumes:
-          - ./scripts/update_run.sh:/tmp/update_run.sh
-          - ./clusterID:/tmp/clusterID
+          - /app/kafka_data:
+          #- ./scripts/update_run.sh:/tmp/update_run.sh
+          #- ./clusterID:/tmp/clusterID
         command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
 
     kafka-gen:
@@ -28,9 +29,10 @@
       hostname: kafka-gen
       container_name: kafka-gen
       volumes:
-        - ./scripts/create_cluster_id.sh:/tmp/create_cluster_id.sh
-        - ./clusterID:/tmp/clusterID
-      command: "bash -c '/tmp/create_cluster_id.sh'"
+        /app/kafka_data:
+      #  - ./scripts/create_cluster_id.sh:/tmp/create_cluster_id.sh
+      #  - ./clusterID:/tmp/clusterID
+      #command: "bash -c '/tmp/create_cluster_id.sh'"
 ```
 
 # kafka dev install
@@ -61,8 +63,10 @@
         - KAFKA_CFG_NUM_PARTITIONS=2
   volumes:
     /app/kafka_data:
+  networks:
+    default:
+      name: my-network
       external: true
-      #driver: local
 ```
 
 # kafka cluster install 1
