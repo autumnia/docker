@@ -19,7 +19,7 @@ service:
         - POSTGRES_USER=autumnia
         - POSTGRES_PASSWORD=autumn
         - POSTGRES_DB=app_db
-        command: ["postgres", "-c", "log_statement=all]
+        command: ["postgres", "-c", "log_statement=all"]
 
     redis:
         image: redis:latest
